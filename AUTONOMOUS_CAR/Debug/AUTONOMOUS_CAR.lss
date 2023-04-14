@@ -3,29 +3,29 @@ AUTONOMOUS_CAR.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000850  00000000  00000000  00000074  2**1
+  0 .text         00000870  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000001e  00800060  00000850  000008c4  2**0
+  1 .data         0000001e  00800060  00000870  000008e4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  000008e2  2**0
+  2 .comment      00000030  00000000  00000000  00000902  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000914  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000934  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000160  00000000  00000000  00000950  2**0
+  4 .debug_aranges 00000160  00000000  00000000  00000970  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00001efe  00000000  00000000  00000ab0  2**0
+  5 .debug_info   00001f86  00000000  00000000  00000ad0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000a6a  00000000  00000000  000029ae  2**0
+  6 .debug_abbrev 00000a5f  00000000  00000000  00002a56  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000fa0  00000000  00000000  00003418  2**0
+  7 .debug_line   00000fc4  00000000  00000000  000034b5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000260  00000000  00000000  000043b8  2**2
+  8 .debug_frame  00000260  00000000  00000000  0000447c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000005bf  00000000  00000000  00004618  2**0
+  9 .debug_str    00000607  00000000  00000000  000046dc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000f55  00000000  00000000  00004bd7  2**0
+ 10 .debug_loc    00000fe5  00000000  00000000  00004ce3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000100  00000000  00000000  00005b2c  2**0
+ 11 .debug_ranges 00000100  00000000  00000000  00005cc8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,7 +65,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e0 e5       	ldi	r30, 0x50	; 80
+  66:	e0 e7       	ldi	r30, 0x70	; 112
   68:	f8 e0       	ldi	r31, 0x08	; 8
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -74,7 +74,7 @@ Disassembly of section .text:
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
   76:	0e 94 d6 02 	call	0x5ac	; 0x5ac <main>
-  7a:	0c 94 26 04 	jmp	0x84c	; 0x84c <_exit>
+  7a:	0c 94 36 04 	jmp	0x86c	; 0x86c <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -894,12 +894,12 @@ int main(void)
 	LCD_Init();
  5c0:	0e 94 19 02 	call	0x432	; 0x432 <LCD_Init>
 	SERVO_Init();
- 5c4:	0e 94 83 03 	call	0x706	; 0x706 <SERVO_Init>
+ 5c4:	0e 94 93 03 	call	0x726	; 0x726 <SERVO_Init>
 	DCM_Init();
  5c8:	0e 94 41 00 	call	0x82	; 0x82 <DCM_Init>
 	u16 distance = 0, RightDistance = 0, LeftDistance = 0;
 	SERVO_90_Degree();
- 5cc:	0e 94 9f 03 	call	0x73e	; 0x73e <SERVO_90_Degree>
+ 5cc:	0e 94 af 03 	call	0x75e	; 0x75e <SERVO_90_Degree>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
@@ -924,7 +924,7 @@ int main(void)
 	while (1)
 	{
 		distance = ULTRASONIC_CalcDistance();
- 5ec:	0e 94 c1 03 	call	0x782	; 0x782 <ULTRASONIC_CalcDistance>
+ 5ec:	0e 94 d1 03 	call	0x7a2	; 0x7a2 <ULTRASONIC_CalcDistance>
 		if (distance > 20)
  5f0:	45 97       	sbiw	r24, 0x15	; 21
  5f2:	88 f0       	brcs	.+34     	; 0x616 <main+0x6a>
@@ -970,7 +970,7 @@ int main(void)
  630:	90 e0       	ldi	r25, 0x00	; 0
  632:	0e 94 b1 02 	call	0x562	; 0x562 <LCD_SendString>
 			SERVO_0_Degree();
- 636:	0e 94 8e 03 	call	0x71c	; 0x71c <SERVO_0_Degree>
+ 636:	0e 94 9e 03 	call	0x73c	; 0x73c <SERVO_0_Degree>
  63a:	ef e4       	ldi	r30, 0x4F	; 79
  63c:	f3 ec       	ldi	r31, 0xC3	; 195
  63e:	31 97       	sbiw	r30, 0x01	; 1
@@ -979,7 +979,7 @@ int main(void)
  644:	00 00       	nop
 			_delay_ms(200);
 			RightDistance = ULTRASONIC_CalcDistance();
- 646:	0e 94 c1 03 	call	0x782	; 0x782 <ULTRASONIC_CalcDistance>
+ 646:	0e 94 d1 03 	call	0x7a2	; 0x7a2 <ULTRASONIC_CalcDistance>
  64a:	ec 01       	movw	r28, r24
  64c:	87 ea       	ldi	r24, 0xA7	; 167
  64e:	91 e6       	ldi	r25, 0x61	; 97
@@ -989,7 +989,7 @@ int main(void)
  656:	00 00       	nop
 			_delay_ms(100);
 			SERVO_180_Degree();
- 658:	0e 94 b0 03 	call	0x760	; 0x760 <SERVO_180_Degree>
+ 658:	0e 94 c0 03 	call	0x780	; 0x780 <SERVO_180_Degree>
  65c:	ef e4       	ldi	r30, 0x4F	; 79
  65e:	f3 ec       	ldi	r31, 0xC3	; 195
  660:	31 97       	sbiw	r30, 0x01	; 1
@@ -998,7 +998,7 @@ int main(void)
  666:	00 00       	nop
 			_delay_ms(200);
 			LeftDistance = ULTRASONIC_CalcDistance();
- 668:	0e 94 c1 03 	call	0x782	; 0x782 <ULTRASONIC_CalcDistance>
+ 668:	0e 94 d1 03 	call	0x7a2	; 0x7a2 <ULTRASONIC_CalcDistance>
  66c:	e7 ea       	ldi	r30, 0xA7	; 167
  66e:	f1 e6       	ldi	r31, 0x61	; 97
  670:	31 97       	sbiw	r30, 0x01	; 1
@@ -1009,7 +1009,7 @@ int main(void)
 			if (RightDistance > LeftDistance)
  678:	8c 17       	cp	r24, r28
  67a:	9d 07       	cpc	r25, r29
- 67c:	38 f5       	brcc	.+78     	; 0x6cc <main+0x120>
+ 67c:	78 f5       	brcc	.+94     	; 0x6dc <main+0x130>
 			{
 				DCM_MoveBack();
  67e:	0e 94 95 00 	call	0x12a	; 0x12a <DCM_MoveBack>
@@ -1052,25 +1052,25 @@ int main(void)
  6c2:	84 e7       	ldi	r24, 0x74	; 116
  6c4:	90 e0       	ldi	r25, 0x00	; 0
  6c6:	0e 94 b1 02 	call	0x562	; 0x562 <LCD_SendString>
- 6ca:	90 cf       	rjmp	.-224    	; 0x5ec <main+0x40>
+ 6ca:	e7 ea       	ldi	r30, 0xA7	; 167
+ 6cc:	f1 e6       	ldi	r31, 0x61	; 97
+ 6ce:	31 97       	sbiw	r30, 0x01	; 1
+ 6d0:	f1 f7       	brne	.-4      	; 0x6ce <main+0x122>
+ 6d2:	00 c0       	rjmp	.+0      	; 0x6d4 <main+0x128>
+ 6d4:	00 00       	nop
+				_delay_ms(100);
+				DCM_MoveForward();
+ 6d6:	0e 94 56 00 	call	0xac	; 0xac <DCM_MoveForward>
+ 6da:	88 cf       	rjmp	.-240    	; 0x5ec <main+0x40>
 			}
 			else if (LeftDistance > RightDistance)
- 6cc:	c8 17       	cp	r28, r24
- 6ce:	d9 07       	cpc	r29, r25
- 6d0:	08 f0       	brcs	.+2      	; 0x6d4 <main+0x128>
- 6d2:	8c cf       	rjmp	.-232    	; 0x5ec <main+0x40>
+ 6dc:	c8 17       	cp	r28, r24
+ 6de:	d9 07       	cpc	r29, r25
+ 6e0:	08 f0       	brcs	.+2      	; 0x6e4 <main+0x138>
+ 6e2:	84 cf       	rjmp	.-248    	; 0x5ec <main+0x40>
 			{
 				DCM_MoveBack();
- 6d4:	0e 94 95 00 	call	0x12a	; 0x12a <DCM_MoveBack>
- 6d8:	e7 ea       	ldi	r30, 0xA7	; 167
- 6da:	f1 e6       	ldi	r31, 0x61	; 97
- 6dc:	31 97       	sbiw	r30, 0x01	; 1
- 6de:	f1 f7       	brne	.-4      	; 0x6dc <main+0x130>
- 6e0:	00 c0       	rjmp	.+0      	; 0x6e2 <main+0x136>
- 6e2:	00 00       	nop
-				_delay_ms(100);
-				DCM_MoveLeft();
- 6e4:	0e 94 80 00 	call	0x100	; 0x100 <DCM_MoveLeft>
+ 6e4:	0e 94 95 00 	call	0x12a	; 0x12a <DCM_MoveBack>
  6e8:	87 ea       	ldi	r24, 0xA7	; 167
  6ea:	91 e6       	ldi	r25, 0x61	; 97
  6ec:	01 97       	sbiw	r24, 0x01	; 1
@@ -1078,244 +1078,262 @@ int main(void)
  6f0:	00 c0       	rjmp	.+0      	; 0x6f2 <main+0x146>
  6f2:	00 00       	nop
 				_delay_ms(100);
+				DCM_MoveLeft();
+ 6f4:	0e 94 80 00 	call	0x100	; 0x100 <DCM_MoveLeft>
+ 6f8:	e7 ea       	ldi	r30, 0xA7	; 167
+ 6fa:	f1 e6       	ldi	r31, 0x61	; 97
+ 6fc:	31 97       	sbiw	r30, 0x01	; 1
+ 6fe:	f1 f7       	brne	.-4      	; 0x6fc <main+0x150>
+ 700:	00 c0       	rjmp	.+0      	; 0x702 <main+0x156>
+ 702:	00 00       	nop
+				_delay_ms(100);
 				LCD_SetCursor(1, 5);
- 6f4:	65 e0       	ldi	r22, 0x05	; 5
- 6f6:	81 e0       	ldi	r24, 0x01	; 1
- 6f8:	0e 94 c4 02 	call	0x588	; 0x588 <LCD_SetCursor>
+ 704:	65 e0       	ldi	r22, 0x05	; 5
+ 706:	81 e0       	ldi	r24, 0x01	; 1
+ 708:	0e 94 c4 02 	call	0x588	; 0x588 <LCD_SetCursor>
 				LCD_SendString("Left");
- 6fc:	89 e7       	ldi	r24, 0x79	; 121
- 6fe:	90 e0       	ldi	r25, 0x00	; 0
- 700:	0e 94 b1 02 	call	0x562	; 0x562 <LCD_SendString>
- 704:	73 cf       	rjmp	.-282    	; 0x5ec <main+0x40>
+ 70c:	89 e7       	ldi	r24, 0x79	; 121
+ 70e:	90 e0       	ldi	r25, 0x00	; 0
+ 710:	0e 94 b1 02 	call	0x562	; 0x562 <LCD_SendString>
+ 714:	87 ea       	ldi	r24, 0xA7	; 167
+ 716:	91 e6       	ldi	r25, 0x61	; 97
+ 718:	01 97       	sbiw	r24, 0x01	; 1
+ 71a:	f1 f7       	brne	.-4      	; 0x718 <main+0x16c>
+ 71c:	00 c0       	rjmp	.+0      	; 0x71e <main+0x172>
+ 71e:	00 00       	nop
+				_delay_ms(100);
+				DCM_MoveForward();
+ 720:	0e 94 56 00 	call	0xac	; 0xac <DCM_MoveForward>
+ 724:	63 cf       	rjmp	.-314    	; 0x5ec <main+0x40>
 
-00000706 <SERVO_Init>:
+00000726 <SERVO_Init>:
 #include "DIO_interface.h"
 #include "SERVO_interface.h"
 #include <util/delay.h>
 void SERVO_Init(void)
 {
 	DIO_SetPinDirection(DIO_GROUPC,DIO_PIN0,DIO_SET_PIN_OUTPUT);
- 706:	41 e0       	ldi	r20, 0x01	; 1
- 708:	60 e0       	ldi	r22, 0x00	; 0
- 70a:	82 e0       	ldi	r24, 0x02	; 2
- 70c:	0e 94 bf 00 	call	0x17e	; 0x17e <DIO_SetPinDirection>
+ 726:	41 e0       	ldi	r20, 0x01	; 1
+ 728:	60 e0       	ldi	r22, 0x00	; 0
+ 72a:	82 e0       	ldi	r24, 0x02	; 2
+ 72c:	0e 94 bf 00 	call	0x17e	; 0x17e <DIO_SetPinDirection>
 	DIO_SetPinValue(DIO_GROUPC,DIO_PIN0,LOW);
- 710:	40 e0       	ldi	r20, 0x00	; 0
- 712:	60 e0       	ldi	r22, 0x00	; 0
- 714:	82 e0       	ldi	r24, 0x02	; 2
- 716:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
- 71a:	08 95       	ret
+ 730:	40 e0       	ldi	r20, 0x00	; 0
+ 732:	60 e0       	ldi	r22, 0x00	; 0
+ 734:	82 e0       	ldi	r24, 0x02	; 2
+ 736:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 73a:	08 95       	ret
 
-0000071c <SERVO_0_Degree>:
+0000073c <SERVO_0_Degree>:
 }
 void SERVO_0_Degree(void)
 {
 	
 		DIO_SetPinValue(DIO_GROUPC,DIO_PIN0,HIGH);
- 71c:	41 e0       	ldi	r20, 0x01	; 1
- 71e:	60 e0       	ldi	r22, 0x00	; 0
- 720:	82 e0       	ldi	r24, 0x02	; 2
- 722:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 73c:	41 e0       	ldi	r20, 0x01	; 1
+ 73e:	60 e0       	ldi	r22, 0x00	; 0
+ 740:	82 e0       	ldi	r24, 0x02	; 2
+ 742:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 726:	8f ec       	ldi	r24, 0xCF	; 207
- 728:	97 e0       	ldi	r25, 0x07	; 7
- 72a:	01 97       	sbiw	r24, 0x01	; 1
- 72c:	f1 f7       	brne	.-4      	; 0x72a <SERVO_0_Degree+0xe>
- 72e:	00 c0       	rjmp	.+0      	; 0x730 <SERVO_0_Degree+0x14>
- 730:	00 00       	nop
+ 746:	8f ec       	ldi	r24, 0xCF	; 207
+ 748:	97 e0       	ldi	r25, 0x07	; 7
+ 74a:	01 97       	sbiw	r24, 0x01	; 1
+ 74c:	f1 f7       	brne	.-4      	; 0x74a <SERVO_0_Degree+0xe>
+ 74e:	00 c0       	rjmp	.+0      	; 0x750 <SERVO_0_Degree+0x14>
+ 750:	00 00       	nop
 		_delay_us(1000);
 		DIO_SetPinValue(DIO_GROUPC,DIO_PIN0,LOW);
- 732:	40 e0       	ldi	r20, 0x00	; 0
- 734:	60 e0       	ldi	r22, 0x00	; 0
- 736:	82 e0       	ldi	r24, 0x02	; 2
- 738:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
- 73c:	08 95       	ret
+ 752:	40 e0       	ldi	r20, 0x00	; 0
+ 754:	60 e0       	ldi	r22, 0x00	; 0
+ 756:	82 e0       	ldi	r24, 0x02	; 2
+ 758:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 75c:	08 95       	ret
 
-0000073e <SERVO_90_Degree>:
+0000075e <SERVO_90_Degree>:
 }
 
 void SERVO_90_Degree(void)
 {
 		DIO_SetPinValue(DIO_GROUPC,DIO_PIN0,HIGH);
- 73e:	41 e0       	ldi	r20, 0x01	; 1
- 740:	60 e0       	ldi	r22, 0x00	; 0
- 742:	82 e0       	ldi	r24, 0x02	; 2
- 744:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
- 748:	87 eb       	ldi	r24, 0xB7	; 183
- 74a:	9b e0       	ldi	r25, 0x0B	; 11
- 74c:	01 97       	sbiw	r24, 0x01	; 1
- 74e:	f1 f7       	brne	.-4      	; 0x74c <SERVO_90_Degree+0xe>
- 750:	00 c0       	rjmp	.+0      	; 0x752 <SERVO_90_Degree+0x14>
- 752:	00 00       	nop
+ 75e:	41 e0       	ldi	r20, 0x01	; 1
+ 760:	60 e0       	ldi	r22, 0x00	; 0
+ 762:	82 e0       	ldi	r24, 0x02	; 2
+ 764:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 768:	87 eb       	ldi	r24, 0xB7	; 183
+ 76a:	9b e0       	ldi	r25, 0x0B	; 11
+ 76c:	01 97       	sbiw	r24, 0x01	; 1
+ 76e:	f1 f7       	brne	.-4      	; 0x76c <SERVO_90_Degree+0xe>
+ 770:	00 c0       	rjmp	.+0      	; 0x772 <SERVO_90_Degree+0x14>
+ 772:	00 00       	nop
 		_delay_us(1500);
 		DIO_SetPinValue(DIO_GROUPC,DIO_PIN0,LOW);
- 754:	40 e0       	ldi	r20, 0x00	; 0
- 756:	60 e0       	ldi	r22, 0x00	; 0
- 758:	82 e0       	ldi	r24, 0x02	; 2
- 75a:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
- 75e:	08 95       	ret
+ 774:	40 e0       	ldi	r20, 0x00	; 0
+ 776:	60 e0       	ldi	r22, 0x00	; 0
+ 778:	82 e0       	ldi	r24, 0x02	; 2
+ 77a:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 77e:	08 95       	ret
 
-00000760 <SERVO_180_Degree>:
+00000780 <SERVO_180_Degree>:
 }
 void SERVO_180_Degree(void)
 {
 	
 		DIO_SetPinValue(DIO_GROUPC,DIO_PIN0,HIGH);
- 760:	41 e0       	ldi	r20, 0x01	; 1
- 762:	60 e0       	ldi	r22, 0x00	; 0
- 764:	82 e0       	ldi	r24, 0x02	; 2
- 766:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
- 76a:	8f e9       	ldi	r24, 0x9F	; 159
- 76c:	9f e0       	ldi	r25, 0x0F	; 15
- 76e:	01 97       	sbiw	r24, 0x01	; 1
- 770:	f1 f7       	brne	.-4      	; 0x76e <SERVO_180_Degree+0xe>
- 772:	00 c0       	rjmp	.+0      	; 0x774 <SERVO_180_Degree+0x14>
- 774:	00 00       	nop
+ 780:	41 e0       	ldi	r20, 0x01	; 1
+ 782:	60 e0       	ldi	r22, 0x00	; 0
+ 784:	82 e0       	ldi	r24, 0x02	; 2
+ 786:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 78a:	8f e9       	ldi	r24, 0x9F	; 159
+ 78c:	9f e0       	ldi	r25, 0x0F	; 15
+ 78e:	01 97       	sbiw	r24, 0x01	; 1
+ 790:	f1 f7       	brne	.-4      	; 0x78e <SERVO_180_Degree+0xe>
+ 792:	00 c0       	rjmp	.+0      	; 0x794 <SERVO_180_Degree+0x14>
+ 794:	00 00       	nop
 		_delay_us(2000);
 		DIO_SetPinValue(DIO_GROUPC,DIO_PIN0,LOW);
- 776:	40 e0       	ldi	r20, 0x00	; 0
- 778:	60 e0       	ldi	r22, 0x00	; 0
- 77a:	82 e0       	ldi	r24, 0x02	; 2
- 77c:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
- 780:	08 95       	ret
+ 796:	40 e0       	ldi	r20, 0x00	; 0
+ 798:	60 e0       	ldi	r22, 0x00	; 0
+ 79a:	82 e0       	ldi	r24, 0x02	; 2
+ 79c:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 7a0:	08 95       	ret
 
-00000782 <ULTRASONIC_CalcDistance>:
+000007a2 <ULTRASONIC_CalcDistance>:
 #define  F_CPU 1000000UL
 #include <util/delay.h>
 u16 ULTRASONIC_CalcDistance()
 {
 u16 a,b,high,distance;
 	TCCR1A = 0;
- 782:	1f bc       	out	0x2f, r1	; 47
+ 7a2:	1f bc       	out	0x2f, r1	; 47
 	TIFR = (1<<ICF1);  	/* Clear ICF (Input Capture flag)  */
- 784:	80 e2       	ldi	r24, 0x20	; 32
- 786:	88 bf       	out	0x38, r24	; 56
+ 7a4:	80 e2       	ldi	r24, 0x20	; 32
+ 7a6:	88 bf       	out	0x38, r24	; 56
 	DIO_SetPinValue(DIO_GROUPD,DIO_PIN7,HIGH);
- 788:	41 e0       	ldi	r20, 0x01	; 1
- 78a:	67 e0       	ldi	r22, 0x07	; 7
- 78c:	83 e0       	ldi	r24, 0x03	; 3
- 78e:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
- 792:	80 e1       	ldi	r24, 0x10	; 16
- 794:	8a 95       	dec	r24
- 796:	f1 f7       	brne	.-4      	; 0x794 <ULTRASONIC_CalcDistance+0x12>
- 798:	00 c0       	rjmp	.+0      	; 0x79a <ULTRASONIC_CalcDistance+0x18>
+ 7a8:	41 e0       	ldi	r20, 0x01	; 1
+ 7aa:	67 e0       	ldi	r22, 0x07	; 7
+ 7ac:	83 e0       	ldi	r24, 0x03	; 3
+ 7ae:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 7b2:	80 e1       	ldi	r24, 0x10	; 16
+ 7b4:	8a 95       	dec	r24
+ 7b6:	f1 f7       	brne	.-4      	; 0x7b4 <ULTRASONIC_CalcDistance+0x12>
+ 7b8:	00 c0       	rjmp	.+0      	; 0x7ba <ULTRASONIC_CalcDistance+0x18>
 	_delay_us(50);
 	DIO_SetPinValue(DIO_GROUPD,DIO_PIN7,LOW);
- 79a:	40 e0       	ldi	r20, 0x00	; 0
- 79c:	67 e0       	ldi	r22, 0x07	; 7
- 79e:	83 e0       	ldi	r24, 0x03	; 3
- 7a0:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
+ 7ba:	40 e0       	ldi	r20, 0x00	; 0
+ 7bc:	67 e0       	ldi	r22, 0x07	; 7
+ 7be:	83 e0       	ldi	r24, 0x03	; 3
+ 7c0:	0e 94 35 01 	call	0x26a	; 0x26a <DIO_SetPinValue>
 	TCCR1B = 0xc1;  	/* Rising edge, no prescaler , noise canceler*/
- 7a4:	81 ec       	ldi	r24, 0xC1	; 193
- 7a6:	8e bd       	out	0x2e, r24	; 46
+ 7c4:	81 ec       	ldi	r24, 0xC1	; 193
+ 7c6:	8e bd       	out	0x2e, r24	; 46
 	while ((TIFR&(1<<ICF1)) == 0);
- 7a8:	08 b6       	in	r0, 0x38	; 56
- 7aa:	05 fe       	sbrs	r0, 5
- 7ac:	fd cf       	rjmp	.-6      	; 0x7a8 <ULTRASONIC_CalcDistance+0x26>
+ 7c8:	08 b6       	in	r0, 0x38	; 56
+ 7ca:	05 fe       	sbrs	r0, 5
+ 7cc:	fd cf       	rjmp	.-6      	; 0x7c8 <ULTRASONIC_CalcDistance+0x26>
 	a = ICR1;  		/* Take value of capture register */
- 7ae:	86 b5       	in	r24, 0x26	; 38
- 7b0:	97 b5       	in	r25, 0x27	; 39
+ 7ce:	86 b5       	in	r24, 0x26	; 38
+ 7d0:	97 b5       	in	r25, 0x27	; 39
 	TIFR = (1<<ICF1);  	/* Clear ICF flag */
- 7b2:	20 e2       	ldi	r18, 0x20	; 32
- 7b4:	28 bf       	out	0x38, r18	; 56
+ 7d2:	20 e2       	ldi	r18, 0x20	; 32
+ 7d4:	28 bf       	out	0x38, r18	; 56
 	TCCR1B = 0x81;  	/* Falling edge, no prescaler ,noise canceler*/
- 7b6:	21 e8       	ldi	r18, 0x81	; 129
- 7b8:	2e bd       	out	0x2e, r18	; 46
+ 7d6:	21 e8       	ldi	r18, 0x81	; 129
+ 7d8:	2e bd       	out	0x2e, r18	; 46
 	while ((TIFR&(1<<ICF1)) == 0);
- 7ba:	08 b6       	in	r0, 0x38	; 56
- 7bc:	05 fe       	sbrs	r0, 5
- 7be:	fd cf       	rjmp	.-6      	; 0x7ba <ULTRASONIC_CalcDistance+0x38>
+ 7da:	08 b6       	in	r0, 0x38	; 56
+ 7dc:	05 fe       	sbrs	r0, 5
+ 7de:	fd cf       	rjmp	.-6      	; 0x7da <ULTRASONIC_CalcDistance+0x38>
 	b = ICR1;  		/* Take value of capture register */
- 7c0:	26 b5       	in	r18, 0x26	; 38
- 7c2:	37 b5       	in	r19, 0x27	; 39
+ 7e0:	26 b5       	in	r18, 0x26	; 38
+ 7e2:	37 b5       	in	r19, 0x27	; 39
 	TIFR = (1<<ICF1);  	/* Clear ICF flag */
- 7c4:	40 e2       	ldi	r20, 0x20	; 32
- 7c6:	48 bf       	out	0x38, r20	; 56
+ 7e4:	40 e2       	ldi	r20, 0x20	; 32
+ 7e6:	48 bf       	out	0x38, r20	; 56
 	TCNT1=0;
- 7c8:	1d bc       	out	0x2d, r1	; 45
- 7ca:	1c bc       	out	0x2c, r1	; 44
+ 7e8:	1d bc       	out	0x2d, r1	; 45
+ 7ea:	1c bc       	out	0x2c, r1	; 44
 	TCCR1B = 0;  		/* Stop the timer */
- 7cc:	1e bc       	out	0x2e, r1	; 46
+ 7ec:	1e bc       	out	0x2e, r1	; 46
 	high=b-a;
- 7ce:	28 1b       	sub	r18, r24
- 7d0:	39 0b       	sbc	r19, r25
+ 7ee:	28 1b       	sub	r18, r24
+ 7f0:	39 0b       	sbc	r19, r25
 	distance=((high*34600)/(F_CPU*2)) ;
- 7d2:	a8 e2       	ldi	r26, 0x28	; 40
- 7d4:	b7 e8       	ldi	r27, 0x87	; 135
- 7d6:	0e 94 17 04 	call	0x82e	; 0x82e <__umulhisi3>
- 7da:	20 e8       	ldi	r18, 0x80	; 128
- 7dc:	34 e8       	ldi	r19, 0x84	; 132
- 7de:	4e e1       	ldi	r20, 0x1E	; 30
- 7e0:	50 e0       	ldi	r21, 0x00	; 0
- 7e2:	0e 94 f5 03 	call	0x7ea	; 0x7ea <__udivmodsi4>
+ 7f2:	a8 e2       	ldi	r26, 0x28	; 40
+ 7f4:	b7 e8       	ldi	r27, 0x87	; 135
+ 7f6:	0e 94 27 04 	call	0x84e	; 0x84e <__umulhisi3>
+ 7fa:	20 e8       	ldi	r18, 0x80	; 128
+ 7fc:	34 e8       	ldi	r19, 0x84	; 132
+ 7fe:	4e e1       	ldi	r20, 0x1E	; 30
+ 800:	50 e0       	ldi	r21, 0x00	; 0
+ 802:	0e 94 05 04 	call	0x80a	; 0x80a <__udivmodsi4>
 	return distance;
- 7e6:	c9 01       	movw	r24, r18
- 7e8:	08 95       	ret
+ 806:	c9 01       	movw	r24, r18
+ 808:	08 95       	ret
 
-000007ea <__udivmodsi4>:
- 7ea:	a1 e2       	ldi	r26, 0x21	; 33
- 7ec:	1a 2e       	mov	r1, r26
- 7ee:	aa 1b       	sub	r26, r26
- 7f0:	bb 1b       	sub	r27, r27
- 7f2:	fd 01       	movw	r30, r26
- 7f4:	0d c0       	rjmp	.+26     	; 0x810 <__udivmodsi4_ep>
+0000080a <__udivmodsi4>:
+ 80a:	a1 e2       	ldi	r26, 0x21	; 33
+ 80c:	1a 2e       	mov	r1, r26
+ 80e:	aa 1b       	sub	r26, r26
+ 810:	bb 1b       	sub	r27, r27
+ 812:	fd 01       	movw	r30, r26
+ 814:	0d c0       	rjmp	.+26     	; 0x830 <__udivmodsi4_ep>
 
-000007f6 <__udivmodsi4_loop>:
- 7f6:	aa 1f       	adc	r26, r26
- 7f8:	bb 1f       	adc	r27, r27
- 7fa:	ee 1f       	adc	r30, r30
- 7fc:	ff 1f       	adc	r31, r31
- 7fe:	a2 17       	cp	r26, r18
- 800:	b3 07       	cpc	r27, r19
- 802:	e4 07       	cpc	r30, r20
- 804:	f5 07       	cpc	r31, r21
- 806:	20 f0       	brcs	.+8      	; 0x810 <__udivmodsi4_ep>
- 808:	a2 1b       	sub	r26, r18
- 80a:	b3 0b       	sbc	r27, r19
- 80c:	e4 0b       	sbc	r30, r20
- 80e:	f5 0b       	sbc	r31, r21
+00000816 <__udivmodsi4_loop>:
+ 816:	aa 1f       	adc	r26, r26
+ 818:	bb 1f       	adc	r27, r27
+ 81a:	ee 1f       	adc	r30, r30
+ 81c:	ff 1f       	adc	r31, r31
+ 81e:	a2 17       	cp	r26, r18
+ 820:	b3 07       	cpc	r27, r19
+ 822:	e4 07       	cpc	r30, r20
+ 824:	f5 07       	cpc	r31, r21
+ 826:	20 f0       	brcs	.+8      	; 0x830 <__udivmodsi4_ep>
+ 828:	a2 1b       	sub	r26, r18
+ 82a:	b3 0b       	sbc	r27, r19
+ 82c:	e4 0b       	sbc	r30, r20
+ 82e:	f5 0b       	sbc	r31, r21
 
-00000810 <__udivmodsi4_ep>:
- 810:	66 1f       	adc	r22, r22
- 812:	77 1f       	adc	r23, r23
- 814:	88 1f       	adc	r24, r24
- 816:	99 1f       	adc	r25, r25
- 818:	1a 94       	dec	r1
- 81a:	69 f7       	brne	.-38     	; 0x7f6 <__udivmodsi4_loop>
- 81c:	60 95       	com	r22
- 81e:	70 95       	com	r23
- 820:	80 95       	com	r24
- 822:	90 95       	com	r25
- 824:	9b 01       	movw	r18, r22
- 826:	ac 01       	movw	r20, r24
- 828:	bd 01       	movw	r22, r26
- 82a:	cf 01       	movw	r24, r30
- 82c:	08 95       	ret
+00000830 <__udivmodsi4_ep>:
+ 830:	66 1f       	adc	r22, r22
+ 832:	77 1f       	adc	r23, r23
+ 834:	88 1f       	adc	r24, r24
+ 836:	99 1f       	adc	r25, r25
+ 838:	1a 94       	dec	r1
+ 83a:	69 f7       	brne	.-38     	; 0x816 <__udivmodsi4_loop>
+ 83c:	60 95       	com	r22
+ 83e:	70 95       	com	r23
+ 840:	80 95       	com	r24
+ 842:	90 95       	com	r25
+ 844:	9b 01       	movw	r18, r22
+ 846:	ac 01       	movw	r20, r24
+ 848:	bd 01       	movw	r22, r26
+ 84a:	cf 01       	movw	r24, r30
+ 84c:	08 95       	ret
 
-0000082e <__umulhisi3>:
- 82e:	a2 9f       	mul	r26, r18
- 830:	b0 01       	movw	r22, r0
- 832:	b3 9f       	mul	r27, r19
- 834:	c0 01       	movw	r24, r0
- 836:	a3 9f       	mul	r26, r19
- 838:	70 0d       	add	r23, r0
- 83a:	81 1d       	adc	r24, r1
- 83c:	11 24       	eor	r1, r1
- 83e:	91 1d       	adc	r25, r1
- 840:	b2 9f       	mul	r27, r18
- 842:	70 0d       	add	r23, r0
- 844:	81 1d       	adc	r24, r1
- 846:	11 24       	eor	r1, r1
- 848:	91 1d       	adc	r25, r1
- 84a:	08 95       	ret
+0000084e <__umulhisi3>:
+ 84e:	a2 9f       	mul	r26, r18
+ 850:	b0 01       	movw	r22, r0
+ 852:	b3 9f       	mul	r27, r19
+ 854:	c0 01       	movw	r24, r0
+ 856:	a3 9f       	mul	r26, r19
+ 858:	70 0d       	add	r23, r0
+ 85a:	81 1d       	adc	r24, r1
+ 85c:	11 24       	eor	r1, r1
+ 85e:	91 1d       	adc	r25, r1
+ 860:	b2 9f       	mul	r27, r18
+ 862:	70 0d       	add	r23, r0
+ 864:	81 1d       	adc	r24, r1
+ 866:	11 24       	eor	r1, r1
+ 868:	91 1d       	adc	r25, r1
+ 86a:	08 95       	ret
 
-0000084c <_exit>:
- 84c:	f8 94       	cli
+0000086c <_exit>:
+ 86c:	f8 94       	cli
 
-0000084e <__stop_program>:
- 84e:	ff cf       	rjmp	.-2      	; 0x84e <__stop_program>
+0000086e <__stop_program>:
+ 86e:	ff cf       	rjmp	.-2      	; 0x86e <__stop_program>

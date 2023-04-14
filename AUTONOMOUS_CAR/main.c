@@ -68,15 +68,21 @@ int main(void)
 				_delay_ms(100);
 				LCD_SetCursor(1, 5);
 				LCD_SendString("Righ");
+				_delay_ms(100);
+				DCM_MoveForward();
 			}
 			else if (LeftDistance > RightDistance)
 			{
 				DCM_MoveBack();
 				_delay_ms(100);
+				LCD_SendString("BACK");
+				_delay_ms(100);
 				DCM_MoveLeft();
 				_delay_ms(100);
 				LCD_SetCursor(1, 5);
 				LCD_SendString("Left");
+				_delay_ms(100);
+				DCM_MoveForward();
 			}
 		}
 	}
